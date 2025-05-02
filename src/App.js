@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { db, collection, addDoc, getDocs, query, where } from './firebase'; 
 
 function App() {
+  const addData = async () => {
+    try {
+      const q = query(collection(db, 'users'), where('name', '==', 'Anča'));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        alert('Anča již existuje v databázi!');
+        return;
+      }
+  
+      await addDoc(collection(db, 'users'), {
+        name: "Anča",
+      });
+      alert('Anča přidána!');
+    } catch (error) {
+      console.error("Chyba při přidávání dat: ", error);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>It works</h1>
+      <button onClick={addData}>Přidat data</button>
+    </>
   );
 }
 
