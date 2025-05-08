@@ -1,5 +1,5 @@
 import { db } from '../firebase';  // Import konfigurace Firebase
-import { doc, getDoc, setDoc, writeBatch } from 'firebase/firestore';
+import { doc, getDoc, writeBatch } from 'firebase/firestore';
 
 /**
  * Check if date is already in Firestore and add it if not
@@ -20,9 +20,6 @@ export const addDatesToFirestore = async (dates) => {
           date: friday,
           attendance: {}
         });
-        console.log(`Přidán pátek: ${friday}`);
-      } else {
-        console.log(`Pátek ${friday} již existuje.`);
       }
 
       const saturdayDocRef = doc(db, 'dates', saturday);
@@ -33,15 +30,11 @@ export const addDatesToFirestore = async (dates) => {
           date: saturday,
           attendance: {}
         });
-        console.log(`Přidána sobota: ${saturday}`);
-      } else {
-        console.log(`Sobota ${saturday} již existuje.`);
       }
     }
 
     // commit the batch
     await batch.commit();
-    console.log('Termíny byly úspěšně přidány do Firestore!');
   } catch (error) {
     console.error("Chyba při přidávání termínů: ", error);
   }

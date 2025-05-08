@@ -1,3 +1,8 @@
 body {
     background-color: #cccccc;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+    color: #0000BB
+}
